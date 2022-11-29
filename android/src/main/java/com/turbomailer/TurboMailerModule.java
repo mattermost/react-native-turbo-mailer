@@ -43,6 +43,7 @@ public class TurboMailerModule extends TurboMailerSpec {
     Intent i = new Intent(Intent.ACTION_SEND_MULTIPLE);
     i.setData(Uri.parse("mailto:"));
     i.setType("message/rfc822");
+    
     if (options.hasKey("subject") && !options.isNull("subject")) {
       i.putExtra(Intent.EXTRA_SUBJECT, options.getString("subject"));
     }
