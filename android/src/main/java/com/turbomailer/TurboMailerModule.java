@@ -1,16 +1,29 @@
 package com.turbomailer;
 
+import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.content.pm.ResolveInfo;
+import android.net.Uri;
+
 import androidx.annotation.NonNull;
+import androidx.core.content.FileProvider;
 
 import com.facebook.react.bridge.Promise;
 import com.facebook.react.bridge.ReactApplicationContext;
-import com.facebook.react.bridge.ReactMethod;
+import com.facebook.react.bridge.ReadableArray;
+import com.facebook.react.bridge.ReadableMap;
+
+import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 
 public class TurboMailerModule extends TurboMailerSpec {
   public static final String NAME = "TurboMailer";
+  ReactApplicationContext reactContext;
 
   TurboMailerModule(ReactApplicationContext context) {
     super(context);
+    this.reactContext = reactContext;
   }
 
   @Override
@@ -43,7 +56,7 @@ public class TurboMailerModule extends TurboMailerSpec {
     Intent i = new Intent(Intent.ACTION_SEND_MULTIPLE);
     i.setData(Uri.parse("mailto:"));
     i.setType("message/rfc822");
-    
+
     if (options.hasKey("subject") && !options.isNull("subject")) {
       i.putExtra(Intent.EXTRA_SUBJECT, options.getString("subject"));
     }
@@ -72,9 +85,9 @@ public class TurboMailerModule extends TurboMailerSpec {
       ReadableArray r = options.getArray("attachments");
       int length = r.size();
 
-      List < ResolveInfo > resolvedIntentActivities = reactContext.getPackageManager().queryIntentActivities(i, PackageManager.MATCH_DEFAULT_ONLY);
+      List<ResolveInfo> resolvedIntentActivities = reactContext.getPackageManager().queryIntentActivities(i, PackageManager.MATCH_DEFAULT_ONLY);
 
-      ArrayList < Uri > uris = new ArrayList < Uri > ();
+      ArrayList < Uri > uris = new ArrayList< Uri >();
       for (int keyIndex = 0; keyIndex < length; keyIndex++) {
         ReadableMap clip = r.getMap(keyIndex);
         Uri uri;
