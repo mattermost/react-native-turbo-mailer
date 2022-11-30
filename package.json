@@ -1,5 +1,5 @@
 {
-  "name": "react-native-turbo-mailer",
+  "name": "@mattermost/react-native-turbo-mailer",
   "version": "0.1.0",
   "description": "test",
   "main": "lib/commonjs/index",

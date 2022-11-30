@@ -1,21 +1,28 @@
-# react-native-turbo-mailer
+# @mattermost/react-native-turbo-mailer
 
-a react native library to send email using Turbo Module
+An adaptation of [react-native-mail](https://github.com/chirag04/react-native-mail/blob/master/android/src/main/java/com/chirag/RNMail/RNMailModule.java) that supports Turbo Module
 
 ## Installation
 
 ```sh
-npm install react-native-turbo-mailer
+npm install @mattermost/react-native-turbo-mailer
 ```
 
 ## Usage
 
 ```js
-import { multiply } from 'react-native-turbo-mailer';
+import TurboMailer from '@mattermost/react-native-turbo-mailer';
 
 // ...
-
-const result = await multiply(3, 7);
+ await TurboMailer.sendMail({
+    subject: "subject here",
+    recipients: ["support@gmail.com"],
+    body: "mail body here",
+    attachments: [{
+        path: '',
+        mimeType: ''
+    }],
+});
 ```
 
 ## Contributing
@@ -27,5 +34,3 @@ See the [contributing guide](CONTRIBUTING.md) to learn how to contribute to the 
 MIT
 
 ---
-
-Made with [create-react-native-library](https://github.com/callstack/react-native-builder-bob)

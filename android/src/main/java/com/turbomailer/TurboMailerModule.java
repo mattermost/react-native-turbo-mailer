@@ -94,7 +94,7 @@ public class TurboMailerModule extends TurboMailerSpec {
         if (clip.hasKey("path") && !clip.isNull("path")) {
           String path = clip.getString("path");
           File file = new File(path);
-          uri = FileProvider.getUriForFile(reactContext, "com.rtnmailer.rtnfileprovider", file);
+          uri = FileProvider.getUriForFile(reactContext, "com.turbomailer.rnfileprovider", file);
         } else {
           promise.reject("file path not supplied");
           return;
