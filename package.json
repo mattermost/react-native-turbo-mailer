@@ -1,6 +1,6 @@
 {
   "name": "@mattermost/react-native-turbo-mailer",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "An adaptation of react-native-mail that supports Turbo Module",
   "main": "lib/commonjs/index",
   "module": "lib/module/index",
