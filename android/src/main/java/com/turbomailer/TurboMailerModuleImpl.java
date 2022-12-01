@@ -17,20 +17,8 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TurboMailerModule extends TurboMailerSpec {
+public class TurboMailerModuleImpl {
   public static final String NAME = "TurboMailer";
-  ReactApplicationContext reactContext;
-
-  TurboMailerModule(ReactApplicationContext context) {
-    super(context);
-    this.reactContext = reactContext;
-  }
-
-  @Override
-  @NonNull
-  public String getName() {
-    return NAME;
-  }
 
   /**
    * Converts a ReadableArray to a String array
@@ -39,7 +27,7 @@ public class TurboMailerModule extends TurboMailerSpec {
    *
    * @return array of strings
    */
-  private String[] readableArrayToStringArray(ReadableArray r) {
+  private static String[] readableArrayToStringArray(ReadableArray r) {
     int length = r.size();
     String[] strArray = new String[length];
 
@@ -50,9 +38,7 @@ public class TurboMailerModule extends TurboMailerSpec {
     return strArray;
   }
 
-  @Override
-  public void sendMail(ReadableMap options, Promise promise) {
-
+  public static void sendMail(ReactApplicationContext reactContext, ReadableMap options, Promise promise) {
     Intent i = new Intent(Intent.ACTION_SEND_MULTIPLE);
     i.setData(Uri.parse("mailto:"));
     i.setType("message/rfc822");
@@ -91,12 +77,17 @@ public class TurboMailerModule extends TurboMailerSpec {
       for (int keyIndex = 0; keyIndex < length; keyIndex++) {
         ReadableMap clip = r.getMap(keyIndex);
         Uri uri;
-        if (clip.hasKey("path") && !clip.isNull("path")) {
-          String path = clip.getString("path");
-          File file = new File(path);
-          uri = FileProvider.getUriForFile(reactContext, "com.turbomailer.rnfileprovider", file);
-        } else {
-          promise.reject("file path not supplied");
+        try {
+          if (clip.hasKey("path") && !clip.isNull("path")) {
+            String path = clip.getString("path");
+            File file = new File(path);
+            uri = FileProvider.getUriForFile(reactContext, "com.turbomailer.rnfileprovider", file);
+          } else {
+            promise.reject("file path not supplied");
+            return;
+          }
+        } catch (Exception e) {
+          promise.reject(e);
           return;
         }
 

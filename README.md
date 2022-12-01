@@ -8,6 +8,21 @@ An adaptation of [react-native-mail](https://github.com/chirag04/react-native-ma
 npm install @mattermost/react-native-turbo-mailer
 ```
 
+
+##### Android specific
+
+Create a file under `android/src/main/res/xml` called `provider_paths.xml` and add the following content
+```xml
+<?xml version='1.0' encoding='utf-8'?>
+<paths xmlns:android="http://schemas.android.com/apk/res/android">
+    <files-path name="files" path="." />
+    <external-files-path name="external_files" path="." />
+    <external-path name="external" path="." />
+    <cache-path name="cache" path="." />
+    <root-path name="root" path="." />
+</paths>
+```
+
 ## Usage
 
 ```js
