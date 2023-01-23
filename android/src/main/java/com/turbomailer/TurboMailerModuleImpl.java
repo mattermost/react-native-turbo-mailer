@@ -81,7 +81,8 @@ public class TurboMailerModuleImpl {
           if (clip.hasKey("path") && !clip.isNull("path")) {
             String path = clip.getString("path");
             File file = new File(path);
-            uri = FileProvider.getUriForFile(reactContext, "com.turbomailer.rnfileprovider", file);
+            String provider = reactContext.getApplicationContext().getPackageName() + ".turbomailer.rnfileprovider";
+            uri = FileProvider.getUriForFile(reactContext, provider, file);
           } else {
             promise.reject("file path not supplied");
             return;

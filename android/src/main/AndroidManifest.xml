@@ -3,7 +3,7 @@
 <application>
   <provider
     android:name="androidx.core.content.FileProvider"
-    android:authorities="com.turbomailer.rnfileprovider"
+    android:authorities="${applicationId}.turbomailer.rnfileprovider"
     android:exported="false"
     android:grantUriPermissions="true">
     <meta-data 
